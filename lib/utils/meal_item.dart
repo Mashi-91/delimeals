@@ -16,6 +16,31 @@ class MealItem extends StatelessWidget {
       required this.complexity,
       required this.affordability});
 
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Simple:
+        return 'Simple';
+      case Complexity.Challenging:
+        return 'Challenging';
+      case Complexity.Hard:
+        return 'Hard';
+      default:
+        return 'Unknown';
+    }
+  }
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return 'Affordable';
+      case Affordability.Pricey:
+        return 'Pricey';
+      case Affordability.Luxurious:
+        return 'Luxurious';
+      default:
+        return 'Unknown';
+    }
+  }
+
   void selectMeal() {}
 
   @override
@@ -41,8 +66,63 @@ class MealItem extends StatelessWidget {
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  right: 0,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                      color: Colors.white70,
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    width: 250,
+                    height: 50,
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Raleway'),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
                 )
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.schedule),
+                      SizedBox(width: 5,),
+                      Text('$duration min', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.work),
+                      const SizedBox(width: 5,),
+                      Text(complexityText, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.attach_money_rounded),
+                      SizedBox(width: 5,),
+                      Text(affordabilityText, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),)
+                    ],
+                  )
+                ],
+              ),
             )
           ],
         ),
