@@ -1,7 +1,9 @@
+import 'package:delimeals/Pages/meal_detailed_screen.dart';
 import 'package:delimeals/model/meal.dart';
 import 'package:flutter/material.dart';
 
 class MealItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
@@ -10,6 +12,7 @@ class MealItem extends StatelessWidget {
 
   const MealItem(
       {super.key,
+      required this.id,
       required this.title,
       required this.imageUrl,
       required this.duration,
@@ -28,6 +31,7 @@ class MealItem extends StatelessWidget {
         return 'Unknown';
     }
   }
+
   String get affordabilityText {
     switch (affordability) {
       case Affordability.Affordable:
@@ -41,12 +45,16 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void selectMeal() {}
+  void selectMeal(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(MealDetailed.routename, arguments:
+      id,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      onTap: () => selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
@@ -102,23 +110,45 @@ class MealItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.schedule),
-                      SizedBox(width: 5,),
-                      Text('$duration min', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),)
+                      const Icon(Icons.schedule),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '$duration min',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Raleway',
+                        ),
+                      )
                     ],
                   ),
                   Row(
                     children: [
                       const Icon(Icons.work),
-                      const SizedBox(width: 5,),
-                      Text(complexityText, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),)
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        complexityText,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Raleway',
+                        ),
+                      )
                     ],
                   ),
                   Row(
                     children: [
                       Icon(Icons.attach_money_rounded),
-                      SizedBox(width: 5,),
-                      Text(affordabilityText, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),)
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        affordabilityText,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontFamily: 'Raleway'),
+                      )
                     ],
                   )
                 ],
